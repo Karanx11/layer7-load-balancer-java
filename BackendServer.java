@@ -14,16 +14,36 @@ public class BackendServer {
 
         server.createContext("/", exchange -> {
 
-            String response =
-                    "Response from Backend Server running on port "
-                            + port;
+    String response =
+            "Hello from Backend Server " + port;
 
-            exchange.sendResponseHeaders(200, response.length());
+    exchange.sendResponseHeaders(
+            200,
+            response.length()
+    );
 
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        });
+    OutputStream os =
+            exchange.getResponseBody();
+
+    os.write(response.getBytes());
+    os.close();
+});
+
+server.createContext("/health", exchange -> {
+
+    String response = "OK";
+
+    exchange.sendResponseHeaders(
+            200,
+            response.length()
+    );
+
+    OutputStream os =
+            exchange.getResponseBody();
+
+    os.write(response.getBytes());
+    os.close();
+});
 
         server.setExecutor(null);
         server.start();
