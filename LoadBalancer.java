@@ -50,14 +50,40 @@ public class LoadBalancer {
                         0
                 );
 
+        // Main Load Balancer Endpoint
         server.createContext(
                 "/",
                 LoadBalancer::handleRequest
         );
 
-        server.setExecutor(null);
+        // Metrics Endpoint
+        server.createContext(
+                "/metrics",
+                exchange -> {
 
-        // Health checker scheduler
+                    String response =
+                            MetricsManager.getMetrics();
+
+                    exchange.sendResponseHeaders(
+                            200,
+                            response.length()
+                    );
+
+                    OutputStream os =
+                            exchange.getResponseBody();
+
+                    os.write(response.getBytes());
+
+                    os.close();
+                }
+        );
+
+        // Multi-threaded Request Handling
+        server.setExecutor(
+                Executors.newFixedThreadPool(20)
+        );
+
+        // Health Check Scheduler
         ScheduledExecutorService scheduler =
                 Executors.newScheduledThreadPool(1);
 
@@ -80,6 +106,8 @@ public class LoadBalancer {
     ) {
 
         try {
+
+            MetricsManager.incrementTotalRequests();
 
             String backendUrl =
                     getNextBackend();
@@ -128,10 +156,15 @@ public class LoadBalancer {
 
             os.write(response.getBytes());
 
+            MetricsManager.incrementBackendRequest(
+                    backendUrl
+            );
+
             os.close();
 
             System.out.println(
-                    "Forwarded request to: "
+                    Thread.currentThread().getName()
+                            + " -> "
                             + backendUrl
             );
 
