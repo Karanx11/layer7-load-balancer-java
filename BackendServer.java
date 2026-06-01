@@ -15,7 +15,7 @@ public class BackendServer {
         server.createContext("/", exchange -> {
 
     String response =
-            "Hello from Backend Server " + port;
+            "Hello ! from Backend Server " + port;
 
     exchange.sendResponseHeaders(
             200,
