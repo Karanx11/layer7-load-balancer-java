@@ -368,9 +368,3 @@ pool-1-thread-3 -> http://localhost:8083
 * Request Rate Limiting
 * Response Time Analytics
 * HTTPS Support
-
----
-
-## Resume Description
-
-Built a multi-threaded Layer 7 Load Balancer in Core Java featuring Round Robin traffic distribution, path-based routing, health monitoring, fault tolerance, automatic backend recovery, and real-time request metrics. Implemented concurrent request processing using ExecutorService and thread-safe data structures such as AtomicInteger and ConcurrentHashMap to ensure scalability and reliability.
