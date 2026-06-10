@@ -12,10 +12,13 @@ public class BackendServer {
         HttpServer server =
                 HttpServer.create(new InetSocketAddress(port), 0);
 
-        server.createContext("/", exchange -> {
+       server.createContext("/", exchange -> {
+
+    String path = exchange.getRequestURI().getPath();
 
     String response =
-            "Hello ! from Backend Server " + port;
+            "Backend " + port +
+            " handled path: " + path;
 
     exchange.sendResponseHeaders(
             200,

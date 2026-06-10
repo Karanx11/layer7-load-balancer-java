@@ -109,8 +109,8 @@ public class LoadBalancer {
 
             MetricsManager.incrementTotalRequests();
 
-            String backendUrl =
-                    getNextBackend();
+            String path = exchange.getRequestURI().getPath();
+            String backendUrl = getBackendForPath(path);
 
             if (backendUrl == null) {
 
@@ -132,8 +132,8 @@ public class LoadBalancer {
                 return;
             }
 
-            URL url =
-                    new URL(backendUrl);
+            URL url = new URL( backendUrl + path );
+        
 
             HttpURLConnection connection =
                     (HttpURLConnection) url.openConnection();
@@ -172,4 +172,22 @@ public class LoadBalancer {
             e.printStackTrace();
         }
     }
+    private static String getBackendForPath(
+        String path
+) {
+
+    if (path.startsWith("/users")) {
+        return "http://localhost:8081";
+    }
+
+    if (path.startsWith("/orders")) {
+        return "http://localhost:8082";
+    }
+
+    if (path.startsWith("/payments")) {
+        return "http://localhost:8083";
+    }
+
+    return getNextBackend();
+}
 }
