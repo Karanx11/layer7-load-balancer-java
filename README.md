@@ -192,10 +192,10 @@ Unknown routes fall back to Round Robin routing.
 
               Round Robin Fallback
 
-       ┌────────────┬────────────┬────────────┐
+       ┌────────────┬────────────┬
        ▼            ▼            ▼
 
-   Backend 8081 Backend 8082 Backend 8083
+    Backend 8081  Backend 8082  Backend 8083
 ```
 
 ---
