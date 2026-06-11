@@ -1,191 +1,255 @@
 # Layer 7 Load Balancer in Java
 
-A multi-threaded Layer 7 Load Balancer built using Core Java to efficiently distribute HTTP requests across multiple backend servers. The project implements Round Robin load balancing, health monitoring, fault tolerance, path-based routing, and request metrics collection while demonstrating core concepts of distributed systems and backend engineering.
+<p align="center">
+  <img src="./assets/Layer%207%20Load%20balancer.png" alt="Layer 7 Load Balancer Banner" width="100%">
+</p>
+
+<p align="center">
+  <b>Multi-Threaded Layer 7 Load Balancer built using Core Java</b>
+</p>
+
+<p align="center">
+  Round Robin • Health Checks • Fault Tolerance • Metrics • Path-Based Routing
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-17+-orange" />
+  <img src="https://img.shields.io/badge/Core-Java-blue" />
+  <img src="https://img.shields.io/badge/Layer%207-Load%20Balancer-green" />
+  <img src="https://img.shields.io/badge/Status-Completed-success" />
+</p>
 
 ---
 
-## Features
+## 🚀 Overview
 
-### Round Robin Load Balancing
+A multi-threaded **Layer 7 Load Balancer** built using **Core Java** to efficiently distribute HTTP requests across multiple backend servers.
 
-Distributes incoming HTTP requests evenly across multiple backend servers.
+The project implements:
+
+- Round Robin Load Balancing
+- Multi-Threaded Request Handling
+- Health Monitoring
+- Automatic Recovery Detection
+- Fault Tolerance
+- Metrics Collection
+- Path-Based Routing
+- Concurrent Processing
+
+This project demonstrates important backend engineering and distributed systems concepts commonly used in modern infrastructure systems.
+
+---
+
+## ✨ Features
+
+### 🔄 Round Robin Load Balancing
+
+Distributes incoming requests evenly across backend servers.
 
 Example:
 
+```text
 Request 1 → Backend 8081
-
 Request 2 → Backend 8082
-
 Request 3 → Backend 8083
-
 Request 4 → Backend 8081
+```
 
 ---
 
-### Multi-Threaded Request Handling
+### ⚡ Multi-Threaded Request Processing
 
-Uses Java's ExecutorService to process multiple client requests concurrently.
+Uses Java's `ExecutorService` to handle multiple requests concurrently.
 
 Benefits:
 
-* Improved throughput
-* Reduced response latency
-* Better scalability under load
+- High throughput
+- Improved responsiveness
+- Better scalability
+- Efficient thread reuse
 
 ---
 
-### Health Monitoring
+### ❤️ Health Monitoring
 
-Continuously monitors backend server health using a dedicated health-check service.
+Periodically checks backend health using a dedicated Health Checker service.
 
 Health Endpoint:
 
+```http
 /health
+```
 
 Example:
 
+```text
 http://localhost:8081/health
+```
 
 Response:
 
+```text
 OK
+```
 
 ---
 
-### Fault Tolerance
+### 🛡️ Fault Tolerance
 
 If a backend server becomes unavailable:
 
+```text
 Backend 8081 ✅
-
 Backend 8082 ❌
-
 Backend 8083 ✅
+```
 
-The load balancer automatically removes the failed server from rotation and routes traffic only to healthy servers.
-
----
-
-### Automatic Recovery Detection
-
-If a failed server comes back online, the health checker automatically detects it and adds it back into the load balancing pool.
+The load balancer automatically removes the failed backend from routing.
 
 ---
 
-### Metrics Collection
+### 🔁 Automatic Recovery Detection
+
+If a failed backend comes back online:
+
+```text
+Backend 8082 ❌ → ✅
+```
+
+The health checker automatically detects the recovery and adds it back to the active server pool.
+
+---
+
+### 📊 Metrics Collection
 
 Tracks:
 
-* Total Requests
-* Requests Per Backend Server
+- Total Requests
+- Requests Per Backend
 
 Metrics Endpoint:
 
+```http
 /metrics
+```
 
 Example:
 
+```text
 http://localhost:8080/metrics
+```
 
-Output:
+Sample Output:
 
+```text
 Total Requests: 120
 
 Requests Per Backend:
 
 http://localhost:8081 -> 40
-
 http://localhost:8082 -> 40
-
 http://localhost:8083 -> 40
+```
 
 ---
 
-### Path-Based Routing (Layer 7)
+### 🌐 Path-Based Routing (Layer 7)
 
-Routes requests based on HTTP URL paths.
+Routes traffic based on URL paths.
 
 Examples:
 
-/users → Backend 8081
+```text
+/users      -> Backend 8081
+/orders     -> Backend 8082
+/payments   -> Backend 8083
+```
 
-/orders → Backend 8082
-
-/payments → Backend 8083
-
-Unknown paths fall back to Round Robin distribution.
-
----
-
-## System Architecture
-
-Client
-│
-▼
-Load Balancer (Port 8080)
-│
-├── /users ─────► Backend 8081
-│
-├── /orders ────► Backend 8082
-│
-├── /payments ──► Backend 8083
-│
-└── Other Routes
-│
-▼
-Round Robin Routing
-│
-├── Backend 8081
-├── Backend 8082
-└── Backend 8083
+Unknown routes fall back to Round Robin routing.
 
 ---
 
-## Tech Stack
+## 🏗️ System Architecture
 
-* Java 17+
-* Core Java
-* HttpServer API
-* ExecutorService
-* ScheduledExecutorService
-* AtomicInteger
-* ConcurrentHashMap
-* Socket/HTTP Networking
+```text
+                    Client
+                       │
+                       ▼
+           ┌─────────────────────┐
+           │   Load Balancer     │
+           │      Port 8080      │
+           └──────────┬──────────┘
+                      │
+      ┌───────────────┼────────────────┐
+      │               │                │
+      ▼               ▼                ▼
+
+  /users          /orders        /payments
+ Backend 8081   Backend 8082   Backend 8083
+
+                      │
+                      ▼
+
+              Round Robin Fallback
+
+       ┌────────────┬────────────┬────────────┐
+       ▼            ▼            ▼
+
+   Backend 8081 Backend 8082 Backend 8083
+```
 
 ---
 
-## Project Structure
+## 🛠️ Tech Stack
 
+- Java 17+
+- Core Java
+- HttpServer API
+- HttpURLConnection
+- ExecutorService
+- ScheduledExecutorService
+- AtomicInteger
+- ConcurrentHashMap
+- HTTP Networking
+
+---
+
+## 📂 Project Structure
+
+```text
 Layer7LoadBalancer/
-
+│
+├── assets/
+│   └── Layer 7 Load balancer.png
+│
 ├── BackendServer.java
-
 ├── LoadBalancer.java
-
-├── ServerInfo.java
-
 ├── HealthChecker.java
-
-└── MetricsManager.java
+├── MetricsManager.java
+├── ServerInfo.java
+│
+└── README.md
+```
 
 ---
 
-## Core Components
+## ⚙️ Core Components
 
 ### BackendServer.java
 
 Responsibilities:
 
-* Creates backend servers
-* Handles incoming requests
-* Exposes health endpoint
-* Returns processed request information
+- Creates backend servers
+- Handles HTTP requests
+- Exposes `/health` endpoint
+- Returns processed request information
 
 Endpoints:
 
+```http
 /
-
 /health
+```
 
 ---
 
@@ -193,37 +257,37 @@ Endpoints:
 
 Responsibilities:
 
-* Accepts client requests
-* Performs path-based routing
-* Executes Round Robin distribution
-* Forwards requests to backend servers
-* Tracks metrics
+- Accept incoming requests
+- Perform path-based routing
+- Execute Round Robin distribution
+- Forward requests to backend servers
+- Track request metrics
 
 ---
 
 ### ServerInfo.java
 
-Stores backend metadata:
+Stores:
 
-* Backend URL
-* Health status
+- Backend URL
+- Health Status
 
 Used by:
 
-* Load Balancer
-* Health Checker
+- LoadBalancer
+- HealthChecker
 
 ---
 
 ### HealthChecker.java
 
-Runs periodically using ScheduledExecutorService.
+Runs periodically using `ScheduledExecutorService`.
 
 Responsibilities:
 
-* Checks backend health every 5 seconds
-* Marks servers healthy/unhealthy
-* Enables automatic recovery
+- Checks backend health every 5 seconds
+- Marks servers healthy/unhealthy
+- Supports automatic recovery
 
 ---
 
@@ -231,23 +295,25 @@ Responsibilities:
 
 Tracks:
 
-* Total requests
-* Requests per backend
+- Total Requests
+- Requests Per Backend
 
 Uses:
 
-* AtomicInteger
-* ConcurrentHashMap
+- AtomicInteger
+- ConcurrentHashMap
 
 for thread-safe operations.
 
 ---
 
-## How to Run
+## 🚀 How To Run
 
 ### Step 1: Compile
 
+```bash
 javac *.java
+```
 
 ---
 
@@ -255,15 +321,21 @@ javac *.java
 
 Terminal 1
 
+```bash
 java BackendServer 8081
+```
 
 Terminal 2
 
+```bash
 java BackendServer 8082
+```
 
 Terminal 3
 
+```bash
 java BackendServer 8083
+```
 
 ---
 
@@ -271,21 +343,27 @@ java BackendServer 8083
 
 Terminal 4
 
+```bash
 java LoadBalancer
+```
 
 Output:
 
+```text
 Load Balancer running on port 8080
+```
 
 ---
 
-## API Testing
+## 🧪 API Testing
 
 ### Round Robin
 
+```text
 http://localhost:8080/test
+```
 
-Refresh multiple times to observe request distribution.
+Refresh multiple times to observe traffic distribution.
 
 ---
 
@@ -293,78 +371,113 @@ Refresh multiple times to observe request distribution.
 
 Users Service
 
+```text
 http://localhost:8080/users
+```
 
 Orders Service
 
+```text
 http://localhost:8080/orders
+```
 
 Payments Service
 
+```text
 http://localhost:8080/payments
+```
 
 ---
 
 ### Health Monitoring
 
+```text
 http://localhost:8081/health
-
 http://localhost:8082/health
-
 http://localhost:8083/health
+```
 
 ---
 
 ### Metrics
 
+```text
 http://localhost:8080/metrics
+```
 
 ---
 
-## Sample Console Output
+## 📋 Sample Console Output
 
-Health Checker:
+### Health Checker
 
+```text
 http://localhost:8081 -> HEALTHY
-
 http://localhost:8082 -> HEALTHY
-
 http://localhost:8083 -> HEALTHY
+------------------------
+```
 
----
+### Request Routing
 
-Request Routing:
-
+```text
 pool-1-thread-1 -> http://localhost:8081
-
 pool-1-thread-2 -> http://localhost:8082
-
 pool-1-thread-3 -> http://localhost:8083
+```
 
 ---
 
-## Key Concepts Demonstrated
+## 🧠 Key Concepts Demonstrated
 
-* Layer 7 Load Balancing
-* Distributed Systems Fundamentals
-* Concurrent Programming
-* Health Monitoring
-* Fault Tolerance
-* Automatic Recovery
-* HTTP Request Routing
-* Backend Scalability
-* Thread Safety
-* Performance Optimization
+- Layer 7 Load Balancing
+- Distributed Systems Fundamentals
+- Multi-Threading
+- Concurrent Programming
+- HTTP Request Routing
+- Health Monitoring
+- Fault Tolerance
+- Automatic Recovery
+- Metrics Collection
+- Backend Scalability
+- Thread Safety
+- Performance Optimization
 
 ---
 
-## Future Enhancements
+## 🔮 Future Enhancements
 
-* Least Connections Load Balancing
-* Weighted Round Robin
-* Dynamic Backend Registration
-* Configuration File Support
-* Docker Deployment
-* Request Rate Limiting
-* Response Time Analytics
-* HTTPS Support
+- Least Connections Load Balancing
+- Weighted Round Robin
+- Dynamic Backend Registration
+- Configuration File Support
+- Docker Deployment
+- Request Rate Limiting
+- Response Time Analytics
+- HTTPS Support
+- Web Dashboard for Monitoring
+
+---
+
+## 💼 Resume Description
+
+**Multi-Threaded Layer 7 Load Balancer | Core Java**
+
+- Built a Layer 7 HTTP Load Balancer using Core Java with Round Robin traffic distribution across multiple backend servers.
+- Implemented health monitoring, fault tolerance, automatic backend recovery, and path-based routing.
+- Developed concurrent request processing using ExecutorService and thread-safe data structures such as AtomicInteger and ConcurrentHashMap.
+- Designed a metrics subsystem to track total requests and per-backend traffic distribution.
+- Demonstrated distributed systems concepts including load balancing, fault detection, and service recovery.
+
+---
+
+## 👨‍💻 Author
+
+**Karan Sharma**
+
+Built as a learning project to explore:
+- Backend Development
+- Distributed Systems
+- Networking
+- Concurrent Programming
+- System Design
