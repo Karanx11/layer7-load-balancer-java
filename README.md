@@ -195,7 +195,11 @@ Unknown routes fall back to Round Robin routing.
        ┌────────────┬────────────┬
        ▼            ▼            ▼
 
+<<<<<<< HEAD
     Backend 8081  Backend 8082  Backend 8083
+=======
+Backend 8081    Backend 8082   Backend 8083
+>>>>>>> 3e8ee127f5beb13e9b0a4eb3aa29dd1b2d9cde3f
 ```
 
 ---
@@ -444,18 +448,6 @@ pool-1-thread-3 -> http://localhost:8083
 - Response Time Analytics
 - HTTPS Support
 - Web Dashboard for Monitoring
-
----
-
-## 💼 Resume Description
-
-**Multi-Threaded Layer 7 Load Balancer | Core Java**
-
-- Built a Layer 7 HTTP Load Balancer using Core Java with Round Robin traffic distribution across multiple backend servers.
-- Implemented health monitoring, fault tolerance, automatic backend recovery, and path-based routing.
-- Developed concurrent request processing using ExecutorService and thread-safe data structures such as AtomicInteger and ConcurrentHashMap.
-- Designed a metrics subsystem to track total requests and per-backend traffic distribution.
-- Demonstrated distributed systems concepts including load balancing, fault detection, and service recovery.
 
 ---
 
