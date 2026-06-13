@@ -1,7 +1,7 @@
 # Layer 7 Load Balancer in Java
 
 <p align="center">
-  <img src="./assets/Layer%207%20Load%20balancer.png" alt="Layer 7 Load Balancer Banner" width="100%">
+  <img src="./assets/layer7-load-balancer.png" alt="Layer 7 Load Balancer Banner" width="100%">
 </p>
 
 <p align="center">
@@ -59,7 +59,7 @@ Request 4 → Backend 8081
 
 ### ⚡ Multi-Threaded Request Processing
 
-Uses Java's `ExecutorService` to handle multiple requests concurrently.
+Uses Java's ExecutorService to handle multiple requests concurrently.
 
 Benefits:
 
@@ -220,7 +220,7 @@ Unknown routes fall back to Round Robin routing.
 Layer7LoadBalancer/
 │
 ├── assets/
-│   └── Layer 7 Load balancer.png
+│   └── layer7-load-balancer.png
 │
 ├── BackendServer.java
 ├── LoadBalancer.java
@@ -281,7 +281,7 @@ Used by:
 
 ### HealthChecker.java
 
-Runs periodically using `ScheduledExecutorService`.
+Runs periodically using ScheduledExecutorService.
 
 Responsibilities:
 
@@ -315,8 +315,6 @@ for thread-safe operations.
 javac *.java
 ```
 
----
-
 ### Step 2: Start Backend Servers
 
 Terminal 1
@@ -336,8 +334,6 @@ Terminal 3
 ```bash
 java BackendServer 8083
 ```
-
----
 
 ### Step 3: Start Load Balancer
 
@@ -363,10 +359,6 @@ Load Balancer running on port 8080
 http://localhost:8080/test
 ```
 
-Refresh multiple times to observe traffic distribution.
-
----
-
 ### Path-Based Routing
 
 Users Service
@@ -387,8 +379,6 @@ Payments Service
 http://localhost:8080/payments
 ```
 
----
-
 ### Health Monitoring
 
 ```text
@@ -396,8 +386,6 @@ http://localhost:8081/health
 http://localhost:8082/health
 http://localhost:8083/health
 ```
-
----
 
 ### Metrics
 
@@ -476,6 +464,7 @@ pool-1-thread-3 -> http://localhost:8083
 **Karan Sharma**
 
 Built as a learning project to explore:
+
 - Backend Development
 - Distributed Systems
 - Networking
