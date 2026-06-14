@@ -251,7 +251,6 @@ Responsibilities:
 Endpoints:
 
 ```http
-/
 /health
 ```
 
@@ -454,11 +453,3 @@ pool-1-thread-3 -> http://localhost:8083
 ## 👨‍💻 Author
 
 **Karan Sharma**
-
-Built as a learning project to explore:
-
-- Backend Development
-- Distributed Systems
-- Networking
-- Concurrent Programming
-- System Design
